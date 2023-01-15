@@ -24,6 +24,30 @@
                 if (index != -1) array.splice(index, 1, value);
                 return array;
             },
+            age: function () {
+                return new Date().getFullYear() - this.byear;
+            },
+            gpa: function () {
+                return this.getAverage(this.grade);
+            },
+            present: function () {
+                return this.addToArray(this.attendance, true);
+            },
+            absent: function () {
+                return this.addToArray(this.attendance, false);
+            },
+            mark: function (numb) {
+                if (numb > 0 && numb <= 10) return this.addToArray(this.grade, numb);
+                throw 'The mark must be from 1 to 10!';
+            },
+            summary: function () {
+                let gradeRes = this.getAverage(this.grade);
+                let attendanceRes = this.getAverage(this.attendance)
+
+                if (gradeRes > 9 && attendanceRes >= 0.9) return 'Ути какой молодчинка!';
+                if (gradeRes < 9 && attendanceRes < 0.9) return 'Редиска!';
+                if (gradeRes <= 9 || attendanceRes <= 0.9) return 'Норм, но можно лучше!';
+            },
         }
 
         function Student(name, surname, byear) {
@@ -32,36 +56,6 @@
             this.byear = byear;
             this.attendance = new Array(10);
             this.grade = new Array(10);
-
-            this.age = function () {
-                return new Date().getFullYear() - this.byear;
-            };
-
-            this.gpa = function () {
-                return this.getAverage(this.grade);
-            };
-
-            this.present = function () {
-                return this.addToArray(this.attendance, true);
-            };
-
-            this.absent = function () {
-                return this.addToArray(this.attendance, false);
-            };
-
-            this.mark = function (numb) {
-                if (numb > 0 && numb <= 10) return this.addToArray(this.grade, numb);
-                throw 'The mark must be from 1 to 10!';
-            };
-
-            this.summary = function () {
-                let gradeRes = this.getAverage(this.grade);
-                let attendanceRes = this.getAverage(this.attendance)
-
-                if (gradeRes > 9 && attendanceRes >= 0.9) return 'Ути какой молодчинка!';
-                if (gradeRes < 9 && attendanceRes < 0.9) return 'Редиска!';
-                if (gradeRes <= 9 || attendanceRes <= 0.9) return 'Норм, но можно лучше!';
-            };
         }
 
 
@@ -164,9 +158,6 @@
         // console.log(dima.gpa());
         // console.log(dima.summary());
         // console.log(dima);
-
-
-
 
     </script>
 </body>
