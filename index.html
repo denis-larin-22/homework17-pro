@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 17</title>
+</head>
+
+<body>
+    <script>
+        'use strict'
+
+        Student.prototype = {
+            constructor: Student,
+            getAverage: array => {
+                return array.reduce((acc, item) => {
+                    return acc += item;
+                }, 0) / array.length;
+            },
+            addToArray: (array, value) => {
+                let index = array.findIndex(index => index === undefined);
+                if (index != -1) array.splice(index, 1, value);
+                return array;
+            },
+        }
+
+        function Student(name, surname, byear) {
+            this.name = name;
+            this.surname = surname;
+            this.byear = byear;
+            this.attendance = new Array(10);
+            this.grade = new Array(10);
+
+            this.age = function () {
+                return new Date().getFullYear() - this.byear;
+            };
+
+            this.gpa = function () {
+                return this.getAverage(this.grade);
+            };
+
+            this.present = function () {
+                return this.addToArray(this.attendance, true);
+            };
+
+            this.absent = function () {
+                return this.addToArray(this.attendance, false);
+            };
+
+            this.mark = function (numb) {
+                if (numb > 0 && numb <= 10) return this.addToArray(this.grade, numb);
+                throw 'The mark must be from 1 to 10!';
+            };
+
+            this.summary = function () {
+                let gradeRes = this.getAverage(this.grade);
+                let attendanceRes = this.getAverage(this.attendance)
+
+                if (gradeRes > 9 && attendanceRes >= 0.9) return 'Ути какой молодчинка!';
+                if (gradeRes < 9 && attendanceRes < 0.9) return 'Редиска!';
+                if (gradeRes <= 9 || attendanceRes <= 0.9) return 'Норм, но можно лучше!';
+            };
+        }
+
+
+
+
+
+
+
+
+
+        // //check
+        // //Denis
+
+        // let denis = new Student('Denis', 'Larin', 1997);
+
+        // denis.present();
+        // denis.present();
+        // denis.present();
+        // denis.present();
+        // denis.absent();
+        // denis.present();
+        // denis.present();
+        // denis.present();
+        // denis.present();
+        // denis.present();
+
+        // denis.mark(10);
+        // denis.mark(10);
+        // denis.mark(9);
+        // denis.mark(10);
+        // denis.mark(10);
+        // denis.mark(10);
+        // denis.mark(9);
+        // denis.mark(10);
+        // denis.mark(10);
+        // denis.mark(10);
+
+        // console.log(denis.age());
+        // console.log(denis.gpa());
+        // console.log(denis.summary());
+        // console.log(denis);
+
+        // ///////Polina
+
+        // let polina = new Student('Polina', 'Kobtseva', 1999);
+
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.present();
+        // polina.absent();
+
+        // polina.mark(9);
+        // polina.mark(9);
+        // polina.mark(9);
+        // polina.mark(7);
+        // polina.mark(7);
+        // polina.mark(9);
+        // polina.mark(9);
+        // polina.mark(10);
+        // polina.mark(9);
+        // polina.mark(10);
+
+        // console.log(polina.age());
+        // console.log(polina.gpa());
+        // console.log(polina.summary());
+        // console.log(polina);
+        // ///////Polina
+
+        // let dima = new Student('Dima', 'Skachkov', 1998);
+
+        // dima.present();
+        // dima.absent();
+        // dima.present();
+        // dima.present();
+        // dima.absent();
+        // dima.absent();
+        // dima.present();
+        // dima.absent();
+        // dima.present();
+        // dima.absent();
+
+        // dima.mark(7);
+        // dima.mark(9);
+        // dima.mark(8);
+        // dima.mark(1);
+        // dima.mark(2);
+        // dima.mark(9);
+        // dima.mark(9);
+        // dima.mark(6);
+        // dima.mark(9);
+        // dima.mark(5);
+
+        // console.log(dima.age());
+        // console.log(dima.gpa());
+        // console.log(dima.summary());
+        // console.log(dima);
+
+
+
+
+    </script>
+</body>
+
+</html>
