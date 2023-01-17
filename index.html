@@ -12,50 +12,62 @@
     <script>
         'use strict'
 
-        Student.prototype = {
-            constructor: Student,
-            getAverage: array => {
-                return array.reduce((acc, item) => {
-                    return acc += item;
-                }, 0) / array.length;
-            },
-            addToArray: (array, value) => {
-                let index = array.findIndex(index => index === undefined);
-                if (index != -1) array.splice(index, 1, value);
-                return array;
-            },
-            age: function () {
-                return new Date().getFullYear() - this.byear;
-            },
-            gpa: function () {
-                return this.getAverage(this.grade);
-            },
-            present: function () {
-                return this.addToArray(this.attendance, true);
-            },
-            absent: function () {
-                return this.addToArray(this.attendance, false);
-            },
-            mark: function (numb) {
-                if (numb > 0 && numb <= 10) return this.addToArray(this.grade, numb);
-                throw 'The mark must be from 1 to 10!';
-            },
-            summary: function () {
-                let gradeRes = this.getAverage(this.grade);
-                let attendanceRes = this.getAverage(this.attendance)
+        function getAverage(array) {
+            let count = 0;
+            let result = array.reduce((acc, item) => {
+                if (item != undefined) count++;
+                if (item) {
+                    return typeof item == 'boolean' ? acc += 1 : acc += item;
+                }
+                return acc += 0;
+            }, 0) / count;
 
-                if (gradeRes > 9 && attendanceRes >= 0.9) return 'Ути какой молодчинка!';
-                if (gradeRes < 9 && attendanceRes < 0.9) return 'Редиска!';
-                if (gradeRes <= 9 || attendanceRes <= 0.9) return 'Норм, но можно лучше!';
-            },
+            return +result.toFixed(1);
         }
+
+        function addToArray(array, value) {
+            let index = array.findIndex(index => index === undefined);
+            if (index != -1) array.splice(index, 1, value);
+            return array;
+        }
+
+        Student.prototype.age = function () {
+            return new Date().getFullYear() - this.byear;
+        }
+
+        Student.prototype.gpa = function () {
+            return getAverage(this.grade);
+        }
+
+        Student.prototype.present = function () {
+            return addToArray(this.attendance, true);
+        }
+
+        Student.prototype.absent = function () {
+            return addToArray(this.attendance, false);
+        }
+
+        Student.prototype.mark = function (numb) {
+            if (numb > 0 && numb <= 10) return addToArray(this.grade, numb);
+            throw 'The mark must be from 1 to 10!';
+        }
+
+        Student.prototype.summary = function () {
+            let gradeRes = getAverage(this.grade);
+            let attendanceRes = getAverage(this.attendance);
+
+            if (gradeRes > 9 && attendanceRes >= 0.9) return 'Ути какой молодчинка!';
+            if (gradeRes < 9 && attendanceRes < 0.9) return 'Редиска!';
+            if (gradeRes <= 9 || attendanceRes <= 0.9) return 'Норм, но можно лучше!';
+        }
+
 
         function Student(name, surname, byear) {
             this.name = name;
             this.surname = surname;
             this.byear = byear;
-            this.attendance = new Array(10);
-            this.grade = new Array(10);
+            this.attendance = new Array(10).fill(undefined);
+            this.grade = new Array(10).fill(undefined);
         }
 
 
@@ -110,8 +122,7 @@
         // polina.present();
         // polina.present();
         // polina.present();
-        // polina.present();
-        // polina.absent();
+
 
         // polina.mark(9);
         // polina.mark(9);
@@ -121,8 +132,7 @@
         // polina.mark(9);
         // polina.mark(9);
         // polina.mark(10);
-        // polina.mark(9);
-        // polina.mark(10);
+
 
         // console.log(polina.age());
         // console.log(polina.gpa());
@@ -135,24 +145,12 @@
         // dima.present();
         // dima.absent();
         // dima.present();
-        // dima.present();
-        // dima.absent();
-        // dima.absent();
-        // dima.present();
-        // dima.absent();
-        // dima.present();
-        // dima.absent();
+
 
         // dima.mark(7);
         // dima.mark(9);
         // dima.mark(8);
-        // dima.mark(1);
-        // dima.mark(2);
-        // dima.mark(9);
-        // dima.mark(9);
-        // dima.mark(6);
-        // dima.mark(9);
-        // dima.mark(5);
+
 
         // console.log(dima.age());
         // console.log(dima.gpa());
